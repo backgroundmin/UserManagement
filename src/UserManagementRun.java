@@ -9,7 +9,15 @@ public class UserManagementRun {
     public User [] user = new User[1000];
     public int userCount;
     public void run(){
-
+        testUserAdd();
+        allUserOutPut();
+    }
+    public void testUserAdd(){
+        user[userCount] = new User("테스트1",20, "01012345678",34);
+        userCount++;
+        user[userCount] = new User("test2",23, "01010235678",15);
+        userCount++;
+        createUser();
     }
     public void createUser() {
         System.out.print("\033[H\033[2J");
@@ -19,7 +27,7 @@ public class UserManagementRun {
         int age = inputInformation.integer("나이");
         String phoneNumber = inputInformation.PhoneNumber();
         int day = inputInformation.integer("이용기간");
-        user[userCount] = new User(name,age,phoneNumber,day);
+        user[userCount++] = new User(name,age,phoneNumber,day);
     }
     public void allUserOutPut(){
         System.out.print("\033[H\033[2J");
@@ -29,7 +37,7 @@ public class UserManagementRun {
         }
     }
     public void userOutPut(User user){
-        System.out.print("유저번호>"+user.uniqueNumber + " 이름>" +
+        System.out.println("유저번호>"+user.uniqueNumber + " 이름>" +
                 user.name + " 나이>" + user.age + " 전화번호>"+
                 user.phoneNumber+" 남은이용기간>"+user.remainingAvailabilityDates);
     }

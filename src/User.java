@@ -1,11 +1,11 @@
 package src;
 
 public class User {
-    private String name;
-    private int age;
-    private String phoneNumber;
+    protected String name;
+    protected int age;
+    protected String phoneNumber;
     protected int remainingAvailabilityDates;
-    private int uniqueNumber;
+    protected int uniqueNumber;
 
     public User(String name, int age, String phoneNumber, int remainingAvailabilityDates){
         this.name = name;

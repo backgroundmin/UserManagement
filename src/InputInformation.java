@@ -38,10 +38,11 @@ public class InputInformation {
         return phoneNumber;
     }
     public int integer(String information){
-        Scanner scan = new Scanner(System.in);
+
         int integer;
         while(true){
             try{
+                Scanner scan = new Scanner(System.in);
                 System.out.print("="+information+System.lineSeparator()+">>");
                 integer = scan.nextInt();
                 break;
@@ -49,5 +50,6 @@ public class InputInformation {
                 System.out.println("잘못입력하셨습니다.");
             }
         }
+        return integer;
     }
 }
