@@ -21,4 +21,16 @@ public class UserManagementRun {
         int day = inputInformation.integer("이용기간");
         user[userCount] = new User(name,age,phoneNumber,day);
     }
+    public void allUserOutPut(){
+        System.out.print("\033[H\033[2J");
+        System.out.println("=====전체 사용자 정보 출력=====");
+        for(int i = 0 ; i < userCount ; i++){
+            userOutPut(user[i]);
+        }
+    }
+    public void userOutPut(User user){
+        System.out.print("유저번호>"+user.uniqueNumber + " 이름>" +
+                user.name + " 나이>" + user.age + " 전화번호>"+
+                user.phoneNumber+" 남은이용기간>"+user.remainingAvailabilityDates);
+    }
 }
