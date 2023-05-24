@@ -4,7 +4,7 @@ public class User {
     private String name;
     private int age;
     private String phoneNumber;
-    private int remainingAvailabilityDates;
+    protected int remainingAvailabilityDates;
     private int uniqueNumber;
 
     public User(String name, int age, String phoneNumber, int remainingAvailabilityDates){
