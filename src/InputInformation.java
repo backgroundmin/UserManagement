@@ -1,12 +1,29 @@
 package src;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class InputInformation {
+    public int list(){
+        int num;
+        System.out.println("1.유저번호");
+        System.out.println("2.이름");
+        while(true){
+            try{
+                Scanner scan = new Scanner(System.in);
+                num = scan.nextInt();
+                if(0 < num && num < 3){
+                    break;
+                }
+                else{
+                    System.out.println("잘못입력하셨습니다.");
+                }
+            } catch (InputMismatchException e){
+                System.out.println("잘못입력하셨습니다.");
+            }
+        }
+        return num;
+    }
     public String name() {
         Scanner scan = new Scanner(System.in);
         String name = new String();
@@ -38,7 +55,6 @@ public class InputInformation {
         return phoneNumber;
     }
     public int integer(String information){
-
         int integer;
         while(true){
             try{
