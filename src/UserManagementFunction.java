@@ -57,7 +57,7 @@ public class UserManagementFunction {
                 userOutPut(user.get(foundIndex.get(i)));
             }
         }
-    }
+    }료
     public void changeInformation(ArrayList<User> user){
         InputInformation inputInformation = new InputInformation();
         System.out.println("=====유저 정보 변경=====");
