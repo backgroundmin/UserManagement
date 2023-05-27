@@ -1,10 +1,10 @@
 package src;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class UserManagementFunction {
     public void createUser(ArrayList<User> user) {
-        System.out.print("\033[H\033[2J");
         System.out.println("=====사용자 정보 입력=====");
         InputInformation inputInformation = new InputInformation();
         String name = inputInformation.name();
@@ -14,9 +14,9 @@ public class UserManagementFunction {
         user.add(new User(name,age,phoneNumber,day));
     }
     public void allUserOutPut(ArrayList<User> user){
-        System.out.print("\033[H\033[2J");
         System.out.println("=====전체 사용자 정보 출력=====");
         for(int i = 0 ; i < user.size() ; i++){
+            System.out.print(i+1+". ");
             userOutPut(user.get(i));
         }
     }
@@ -29,7 +29,7 @@ public class UserManagementFunction {
         System.out.println("=====유저검색=====");
         ArrayList<Integer> foundIndex = new ArrayList<Integer>();
         InputInformation inputInformation = new InputInformation();
-        int choiceInfo = inputInformation.list();
+        int choiceInfo = inputInformation.list("유저번호","이름");
         switch (choiceInfo){
             case 1:
                 int findUniqueNumber = inputInformation.integer("유저번호");
@@ -57,5 +57,35 @@ public class UserManagementFunction {
                 userOutPut(user.get(foundIndex.get(i)));
             }
         }
+    }료
+    public void changeInformation(ArrayList<User> user){
+        InputInformation inputInformation = new InputInformation();
+        System.out.println("=====유저 정보 변경=====");
+        allUserOutPut(user);
+        System.out.println("=변경할 유저를 선택하세요"+System.lineSeparator()+">>");
+        int choiceUserIndex = inputInformation.selectList(user.size())-1;
+        int choiceInfoNum = inputInformation.selectChangeInformation();
+        User tempUserData = user.get(choiceUserIndex);
+        switch (choiceInfoNum){
+            case 1:
+                String name = inputInformation.name();
+                tempUserData.name = name;
+                break;
+            case 2:
+                int age = inputInformation.integer("나이");
+                tempUserData.age = age;
+                break;
+            case 3:
+                String phoneNumber = inputInformation.PhoneNumber();
+                tempUserData.phoneNumber = phoneNumber;
+                tempUserData.uniqueNumber = Integer.parseInt(phoneNumber.substring(phoneNumber.length()-4,phoneNumber.length()));
+                break;
+            case 4:
+                int day = inputInformation.integer("이용기간");
+                tempUserData.remainingAvailabilityDates = day;
+                break;
+        }
+        user.set(choiceUserIndex,tempUserData);
+        System.out.println("=변경완료=");
     }
 }
