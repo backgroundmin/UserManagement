@@ -4,10 +4,10 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class InputInformation {
-    public int list(){
+    public int list(String list1, String list2){
         int num;
-        System.out.println("1.유저번호");
-        System.out.println("2.이름");
+        System.out.println("1. "+ list1);
+        System.out.println("2. "+ list2);
         while(true){
             try{
                 Scanner scan = new Scanner(System.in);
@@ -62,6 +62,49 @@ public class InputInformation {
                 System.out.print("="+information+System.lineSeparator()+">>");
                 integer = scan.nextInt();
                 break;
+            } catch (InputMismatchException e){
+                System.out.println("잘못입력하셨습니다.");
+            }
+        }
+        return integer;
+    }
+    public int selectList(int size){
+        int integer;
+        while(true){
+            try{
+                Scanner scan = new Scanner(System.in);
+                System.out.print(">>");
+                integer = scan.nextInt();
+                if(0 < integer && integer < size+1){
+                    break;
+                }
+                else{
+                    System.out.println("잘못입력하셨습니다.");
+                }
+            } catch (InputMismatchException e){
+                System.out.println("잘못입력하셨습니다.");
+            }
+        }
+        return integer;
+    }
+    public int selectChangeInformation(){
+        System.out.println("=변경할 정보를 고르세요");
+        System.out.println("1. 이름");
+        System.out.println("2. 나이");
+        System.out.println("3. 전화번호");
+        System.out.println("4. 남은이용기간");
+        int integer;
+        while(true){
+            try{
+                Scanner scan = new Scanner(System.in);
+                System.out.print(">>");
+                integer = scan.nextInt();
+                if(0 < integer && integer < 5){
+                    break;
+                }
+                else{
+                    System.out.println("잘못입력하셨습니다.");
+                }
             } catch (InputMismatchException e){
                 System.out.println("잘못입력하셨습니다.");
             }
