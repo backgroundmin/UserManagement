@@ -8,7 +8,6 @@ public class UserManagementRun {
     public void run(){
         InputInformation inputInfo = new InputInformation();
         int selectNum = 0;
-        testUserAdd();
         while(selectNum != 5){
             printStartScreen();
             selectNum = inputInfo.selectList(5);
@@ -31,6 +30,7 @@ public class UserManagementRun {
             }
         }
     }
+
     public void printStartScreen(){
         System.out.println("======회원 관리 시스템 ======");
         System.out.println("1. 회원 생성");
