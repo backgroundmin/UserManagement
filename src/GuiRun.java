@@ -3,6 +3,9 @@ package src;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.awt.event.WindowAdapter;
 import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.JOptionPane;
@@ -22,12 +25,20 @@ public class GuiRun extends JFrame implements ActionListener{
     public void setting(){
         setTitle("유저관리");
         setSize(1000,700);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBigJPanel();
         setActionJPanel();
         btnCreate();
         add(bigJPanel);
         setVisible(true);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                FileManagement fileManagement = new FileManagement();
+                fileManagement.save(user);
+                dispose();
+                System.exit(0);
+            }
+        });
     }
     @Override
     public void actionPerformed(ActionEvent e) {
