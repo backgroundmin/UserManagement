@@ -3,7 +3,6 @@ import java.util.ArrayList;
 
 public class UserManagementRun {
     public ArrayList<User> user = new ArrayList<>();
-    public int userCount=0;
     UserManagementFunction userMF = new UserManagementFunction();
     public void run(){
         FileManagement fileManagement = new FileManagement();

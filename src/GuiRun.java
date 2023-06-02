@@ -5,12 +5,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.*;
+import javax.swing.JOptionPane;
 import javax.swing.border.*;
 
 public class GuiRun extends JFrame implements ActionListener{
     Button createUserBtn, allUserOutPutBtn, findUserBtn, changeInformationBtn;
     JPanel bigJPanel, actionJPanel;
-    UserManagementFunction userMF = new UserManagementFunction();
+    GUIUserManagementFunction userMF = new GUIUserManagementFunction();
     public ArrayList<User> user = new ArrayList<>();
     public void run(){
         FileManagement fileManagement = new FileManagement();
@@ -47,8 +48,34 @@ public class GuiRun extends JFrame implements ActionListener{
     public void createUser(){
         JPanel createUserPanel = new JPanel();
         createUserPanel.removeAll();
-        JTextField inputRemainingAvailabilityDates= new JTextField();
-        actionJPanel.add(inputRemainingAvailabilityDates);
+        createUserPanel.setLayout(null);
+        Label label1 = new Label("유저생성"); label1.setBounds(10,10,50,30);
+        createUserPanel.add(label1);
+
+        Label info = new Label("이름"); info.setBounds(50,50,50,20); createUserPanel.add(info);
+        JTextField inputName = new JTextField(); inputName.setBounds(100,50,100,20); createUserPanel.add(inputName);
+        info = new Label("나이"); info.setBounds(50,70,50,20);createUserPanel.add(info);
+        JTextField inputAge = new JTextField(); inputAge.setBounds(100,70,100,20);createUserPanel.add(inputAge);
+        info = new Label("전화번호"); info.setBounds(50,90,50,20); createUserPanel.add(info);
+        JTextField inputPhoneNumber= new JTextField(); inputPhoneNumber.setBounds(100,90,100,20); createUserPanel.add(inputPhoneNumber);
+        info = new Label("이용기간"); info.setBounds(50,110,50,20); createUserPanel.add(info);
+        JTextField inputRemainingAvailabilityDates= new JTextField(); inputRemainingAvailabilityDates.setBounds(100,110,100,20);createUserPanel.add(inputRemainingAvailabilityDates);
+        JButton checkBtn = new JButton("생성"); checkBtn.setBounds(50,130,50,20); createUserPanel.add(checkBtn);
+        checkBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(e.getSource() == checkBtn){
+                    Boolean checkInfo = userMF.createUser(user,new String[]{inputName.getText(),inputAge.getText(),inputPhoneNumber.getText(),inputRemainingAvailabilityDates.getText()});
+                    if(!checkInfo){
+                        JOptionPane.showMessageDialog(null,"생성 실패");
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null,"생성 성공");
+                    }
+                    inputName.setText(""); inputAge.setText("");inputPhoneNumber.setText(""); inputRemainingAvailabilityDates.setText("");
+                }
+            }
+        });
         actionJPanel.add(createUserPanel);
         setVisible(true);
     }
@@ -110,8 +137,11 @@ public class GuiRun extends JFrame implements ActionListener{
     public void setActionJPanel(){
         actionJPanel = new JPanel();
         actionJPanel.setBounds(100,0,getWidth()-100,getHeight());
-        actionJPanel.setBackground(Color.gray);
+        //actionJPanel.setBackground(Color.gray);
         actionJPanel.setLayout(new BoxLayout(actionJPanel,BoxLayout.Y_AXIS));
         bigJPanel.add(actionJPanel);
+    }
+    public void setInputInfo(){
+
     }
 }
