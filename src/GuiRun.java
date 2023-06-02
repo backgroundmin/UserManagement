@@ -3,12 +3,19 @@ package src;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.*;
+import javax.swing.border.*;
+
 public class GuiRun extends JFrame implements ActionListener{
     Button createUserBtn, allUserOutPutBtn, findUserBtn, changeInformationBtn;
     JPanel bigJPanel, actionJPanel;
-
+    UserManagementFunction userMF = new UserManagementFunction();
+    public ArrayList<User> user = new ArrayList<>();
     public void run(){
+        FileManagement fileManagement = new FileManagement();
+        fileManagement.Load(user);
+        InputInformation inputInfo = new InputInformation();
         setting();
     }
     public void setting(){
@@ -40,17 +47,26 @@ public class GuiRun extends JFrame implements ActionListener{
     public void createUser(){
         JPanel createUserPanel = new JPanel();
         createUserPanel.removeAll();
-        Label label1 = new Label("유저생성");
-        createUserPanel.add(label1);
+        JTextField inputRemainingAvailabilityDates= new JTextField();
+        actionJPanel.add(inputRemainingAvailabilityDates);
         actionJPanel.add(createUserPanel);
         setVisible(true);
     }
     public void allUserOutPut(){
         JPanel allUserOutPutPanel = new JPanel();
+        allUserOutPutPanel.setLayout(null);
         allUserOutPutPanel.removeAll();
-        Label label1 = new Label("회원출력");
+        Label label1 = new Label("전체회원출력");
+        label1.setBounds(10,10,100,30);
+        String [] header = {"고유번호","이름","나이","전화번호","남은이용기간"};
+        String [][] userInfo = userMF.allUserOutPut(user);
+        JTable userInfoTable = new JTable(userInfo,header);
+        JScrollPane scrollUserInfoTable = new JScrollPane(userInfoTable);
+        scrollUserInfoTable.setBounds(10,50,getWidth()-190,getHeight()-100);
         allUserOutPutPanel.add(label1);
+        allUserOutPutPanel.add(scrollUserInfoTable);
         actionJPanel.add(allUserOutPutPanel);
+        label1.setVisible(true);
         setVisible(true);
     }
     public void changeInformation(){
@@ -73,7 +89,7 @@ public class GuiRun extends JFrame implements ActionListener{
         JPanel btnJPanel = new JPanel();
         btnJPanel.setLayout(new BoxLayout(btnJPanel,BoxLayout.Y_AXIS));
         btnJPanel.setBounds(0,0,100,130);
-        btnJPanel.setBackground(Color.BLUE);
+        btnJPanel.setBackground(Color.white);
         createUserBtn = new Button("회원 생성");
         allUserOutPutBtn = new Button("전체 회원 출력");
         findUserBtn = new Button("회원검색");
@@ -89,12 +105,13 @@ public class GuiRun extends JFrame implements ActionListener{
     public void setBigJPanel(){
         bigJPanel = new JPanel();
         bigJPanel.setLayout(null);
-        bigJPanel.setBackground(Color.BLACK);
+        bigJPanel.setBackground(Color.white);
     }
     public void setActionJPanel(){
         actionJPanel = new JPanel();
         actionJPanel.setBounds(100,0,getWidth()-100,getHeight());
-        actionJPanel.setBackground(Color.YELLOW);
+        actionJPanel.setBackground(Color.gray);
+        actionJPanel.setLayout(new BoxLayout(actionJPanel,BoxLayout.Y_AXIS));
         bigJPanel.add(actionJPanel);
     }
 }

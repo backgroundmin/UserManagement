@@ -13,17 +13,32 @@ public class UserManagementFunction {
         int day = inputInformation.integer("이용기간");
         user.add(new User(name,age,phoneNumber,day));
     }
-    public void allUserOutPut(ArrayList<User> user){
+    public String[][] allUserOutPut(ArrayList<User> user){
+        String [][] usersInfo = new String[user.size()][5];
+        for(int i = 0 ; i < user.size() ; i++){
+            usersInfo[i] = userOutPut(user.get(i));
+        }
+        return usersInfo;
+        /*
         System.out.println("=====전체 사용자 정보 출력=====");
         for(int i = 0 ; i < user.size() ; i++){
             System.out.print(i+1+". ");
             userOutPut(user.get(i));
-        }
+        }*/
     }
-    public void userOutPut(User user){
+    public String[] userOutPut(User user){
+        String [] userInfo = new String[5];
+        userInfo[0] = String.valueOf(user.uniqueNumber);
+        userInfo[1] = user.name;
+        userInfo[2] = String.valueOf(user.age);
+        userInfo[3] = user.phoneNumber;
+        userInfo[4] = String.valueOf(user.remainingAvailabilityDates);
+        return userInfo;
+        /*
         System.out.println("유저번호>"+user.uniqueNumber + " 이름>" +
                 user.name + " 나이>" + user.age + " 전화번호>"+
                 user.phoneNumber+" 남은이용기간>"+user.remainingAvailabilityDates);
+        */
     }
     public void findUser(ArrayList<User> user){
         System.out.println("=====유저검색=====");
