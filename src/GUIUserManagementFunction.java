@@ -38,38 +38,27 @@ public class GUIUserManagementFunction {
         userInfo[4] = String.valueOf(user.remainingAvailabilityDates);
         return userInfo;
     }
-    public void findUser(ArrayList<User> user){
-        System.out.println("=====유저검색=====");
+    public String[][] findUser(ArrayList<User> user,String kindInfo, String text){
         ArrayList<Integer> foundIndex = new ArrayList<Integer>();
-        InputInformation inputInformation = new InputInformation();
-        int choiceInfo = inputInformation.list("유저번호","이름");
-        switch (choiceInfo){
-            case 1:
-                int findUniqueNumber = inputInformation.integer("유저번호");
-                for(int i = 0 ; i < user.size() ; i++){
-                    if(user.get(i).uniqueNumber == findUniqueNumber){
-                        foundIndex.add(i);
-                    }
+        String [][] findUsersInfo = new String[user.size()][5];
+        if(kindInfo.equals("고유번호")){
+            int findUniqueNumber = Integer.parseInt(text);
+            for(int i = 0 ; i < user.size() ; i++){
+                if(user.get(i).uniqueNumber == findUniqueNumber){
+                    foundIndex.add(i);
                 }
-                break;
-            case 2:
-                String findName = inputInformation.name();
-                for(int i = 0 ; i < user.size() ; i++){
-                    if(user.get(i).name.equals(findName)){
-                        foundIndex.add(i);
-                    }
+            }
+        } else if (kindInfo.equals("이름")) {
+            for(int i = 0 ; i < user.size() ; i++){
+                if(user.get(i).name.equals(text)){
+                    foundIndex.add(i);
                 }
-                break;
-        }
-        if(foundIndex.isEmpty()){
-            System.out.println("검색결과가 없습니다.");
-        }
-        else{
-            System.out.println("검색결과 " +foundIndex.size()+"건 존재합니다");
-            for(int i = 0 ; i < foundIndex.size() ; i++){
-                userOutPut(user.get(foundIndex.get(i)));
             }
         }
+        for(int i = 0 ; i < foundIndex.size() ; i++){
+            findUsersInfo[i] = userOutPut(user.get(foundIndex.get(i)));
+        }
+        return findUsersInfo;
     }
     public void changeInformation(ArrayList<User> user){
         InputInformation inputInformation = new InputInformation();

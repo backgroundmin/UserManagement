@@ -4,12 +4,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.awt.event.WindowAdapter;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Vector;
 import javax.swing.*;
 import javax.swing.JOptionPane;
-import javax.swing.border.*;
 
 public class GuiRun extends JFrame implements ActionListener{
     Button createUserBtn, allUserOutPutBtn, findUserBtn, changeInformationBtn;
@@ -116,11 +116,36 @@ public class GuiRun extends JFrame implements ActionListener{
         setVisible(true);
     }
     public void findUser(){
-        JPanel findUser = new JPanel();
-        findUser.removeAll();
-        Label label1 = new Label("회원 검색");
-        findUser.add(label1);
-        actionJPanel.add(findUser);
+        JPanel findUserPanel = new JPanel();
+        findUserPanel.setLayout(null);
+        findUserPanel.removeAll();
+        Label label1 = new Label("회원 검색"); label1.setBounds(10,10,100,30);findUserPanel.add(label1);
+        JComboBox<String> comboBoxKindInfo = new JComboBox<String>(new Vector<>(Arrays.asList("고유번호","이름")));
+        comboBoxKindInfo.setBounds(10,50,100,20); findUserPanel.add(comboBoxKindInfo);
+        JTextField inputText= new JTextField(); inputText.setBounds(110,50,100,20); findUserPanel.add(inputText);
+        JButton checkBtn = new JButton("검색"); checkBtn.setBounds(220,50,50,20); findUserPanel.add(checkBtn);
+        checkBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(e.getSource() == checkBtn){
+                    String selectInfo = comboBoxKindInfo.getSelectedItem().toString();
+                    String text = inputText.getText();
+                    if(selectInfo.equals("고유번호")&&!text.chars().allMatch(Character::isDigit)){
+                        JOptionPane.showMessageDialog(null,"입력 오류");
+                    }
+                    else{
+                        String [] header = {"고유번호","이름","나이","전화번호","남은이용기간"};
+                        String [][] userInfo = userMF.findUser(user,selectInfo,text);
+                        JTable userInfoTable = new JTable(userInfo,header);
+                        JScrollPane scrollUserInfoTable = new JScrollPane(userInfoTable);
+                        scrollUserInfoTable.setBounds(10,80,getWidth()-190,200);
+                        findUserPanel.add(scrollUserInfoTable);
+                    }
+                    inputText.setText("");
+                }
+            }
+        });
+        actionJPanel.add(findUserPanel);
         setVisible(true);
     }
     public void btnCreate(){
