@@ -1,15 +1,14 @@
 package src;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowAdapter;
+import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.Vector;
 import javax.swing.*;
 import javax.swing.JOptionPane;
+import javax.swing.table.TableColumn;
 
 public class GuiRun extends JFrame implements ActionListener{
     Button createUserBtn, allUserOutPutBtn, findUserBtn, changeInformationBtn;
@@ -104,14 +103,76 @@ public class GuiRun extends JFrame implements ActionListener{
         allUserOutPutPanel.add(label1);
         allUserOutPutPanel.add(scrollUserInfoTable);
         actionJPanel.add(allUserOutPutPanel);
-        label1.setVisible(true);
         setVisible(true);
     }
     public void changeInformation(){
-        JPanel changeInformation = new JPanel();
+        JPanel changeInformation = new JPanel();changeInformation.setLayout(null);
         changeInformation.removeAll();
-        Label label1 = new Label("정보 수정");
+        Label label1 = new Label("정보 수정"); label1.setBounds(10,10,100,30);
         changeInformation.add(label1);
+        String [] header = {"고유번호","이름","나이","전화번호","이용기간"};
+        Object [][] userInfo = userMF.allUserOutPut(user);
+        JButton [] selectList = new JButton[user.size()];
+        JTable userInfoTable = new JTable(userInfo,header);
+        final int[] selectIndex = {-1};
+        Label info = new Label("이름"); info.setBounds(50,50,50,20); changeInformation.add(info);
+        JTextField inputName = new JTextField(); inputName.setBounds(100,50,150,20); changeInformation.add(inputName);
+        info = new Label("나이"); info.setBounds(50,70,50,20);changeInformation.add(info);
+        JTextField inputAge = new JTextField(); inputAge.setBounds(100,70,150,20);changeInformation.add(inputAge);
+        info = new Label("전화번호"); info.setBounds(50,90,50,20); changeInformation.add(info);
+        JTextField inputPhoneNumber= new JTextField(); inputPhoneNumber.setBounds(100,90,150,20); changeInformation.add(inputPhoneNumber);
+        info = new Label("이용기간"); info.setBounds(50,110,50,20); changeInformation.add(info);
+        JTextField inputRemainingDates= new JTextField(); inputRemainingDates.setBounds(100,110,150,20);changeInformation.add(inputRemainingDates);
+        JButton retouchBtn = new JButton("수정"); retouchBtn.setBounds(50,130,50,20); changeInformation.add(retouchBtn);
+        JButton deleteBtn = new JButton("삭제"); deleteBtn.setBounds(100,130,50,20); changeInformation.add(deleteBtn);
+        userInfoTable.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if(e.getClickCount() == 1){
+                    selectIndex[0] = userInfoTable.getSelectedRow();
+                    inputName.setText(user.get(selectIndex[0]).name);
+                    inputAge.setText(String.valueOf(user.get(selectIndex[0]).age));
+                    inputPhoneNumber.setText(user.get(selectIndex[0]).phoneNumber);
+                    inputRemainingDates.setText(String.valueOf(user.get(selectIndex[0]).remainingAvailabilityDates));
+                }
+            }
+        });
+
+        ActionListener ActionListener = new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(e.getSource() == deleteBtn){
+                    user.remove(selectIndex[0]);
+                    actionJPanel.removeAll();
+                    JOptionPane.showMessageDialog(null,"삭제되었습니다");
+                    changeInformation.removeAll();
+                    changeInformation();
+                } else if (e.getSource() == retouchBtn) {
+                    boolean checkInfo = userMF.changeInformation(user,new String[]{inputName.getText(),inputAge.getText(),inputPhoneNumber.getText(),inputRemainingDates.getText()},selectIndex[0]);
+                    if(!checkInfo){
+                        JOptionPane.showMessageDialog(null,"수정 실패");
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null,"수정 성공");
+                        actionJPanel.removeAll();
+                        changeInformation.removeAll();
+                        changeInformation();
+                        inputName.setText(""); inputAge.setText("");inputPhoneNumber.setText(""); inputRemainingDates.setText("");
+
+                    }
+                }
+            }
+        };;
+        retouchBtn.addActionListener(ActionListener);
+        deleteBtn.addActionListener(ActionListener);
+        userInfoTable.getTableHeader().setReorderingAllowed(false);
+        userInfoTable.getColumn("고유번호").setPreferredWidth(35);
+        userInfoTable.getColumn("나이").setPreferredWidth(20);
+        userInfoTable.getColumn("이용기간").setPreferredWidth(20);
+        userInfoTable.getColumn("이름").setPreferredWidth(20);
+        JScrollPane scrollUserInfoTable = new JScrollPane(userInfoTable);
+        scrollUserInfoTable.setBounds(400,50,400,getHeight()-200);
+        changeInformation.add(scrollUserInfoTable);
         actionJPanel.add(changeInformation);
         setVisible(true);
     }
@@ -176,8 +237,5 @@ public class GuiRun extends JFrame implements ActionListener{
         //actionJPanel.setBackground(Color.gray);
         actionJPanel.setLayout(new BoxLayout(actionJPanel,BoxLayout.Y_AXIS));
         bigJPanel.add(actionJPanel);
-    }
-    public void setInputInfo(){
-
     }
 }

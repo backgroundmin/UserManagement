@@ -60,34 +60,25 @@ public class GUIUserManagementFunction {
         }
         return findUsersInfo;
     }
-    public void changeInformation(ArrayList<User> user){
-        InputInformation inputInformation = new InputInformation();
-        System.out.println("=====유저 정보 변경=====");
-        allUserOutPut(user);
-        System.out.println("=변경할 유저를 선택하세요"+System.lineSeparator()+">>");
-        int choiceUserIndex = inputInformation.selectList(user.size())-1;
-        int choiceInfoNum = inputInformation.selectChangeInformation();
-        User tempUserData = user.get(choiceUserIndex);
-        switch (choiceInfoNum){
-            case 1:
-                String name = inputInformation.name();
-                tempUserData.name = name;
-                break;
-            case 2:
-                int age = inputInformation.integer("나이");
-                tempUserData.age = age;
-                break;
-            case 3:
-                String phoneNumber = inputInformation.PhoneNumber();
-                tempUserData.phoneNumber = phoneNumber;
-                tempUserData.uniqueNumber = Integer.parseInt(phoneNumber.substring(phoneNumber.length()-4,phoneNumber.length()));
-                break;
-            case 4:
-                int day = inputInformation.integer("이용기간");
-                tempUserData.remainingAvailabilityDates = day;
-                break;
+    public boolean changeInformation(ArrayList<User> user, String [] info, int selectIndex){
+        boolean returnBoolean = true;
+        if(info[0].length() > 20){
+            returnBoolean = false;
         }
-        user.set(choiceUserIndex,tempUserData);
-        System.out.println("=변경완료=");
+        else if (!info[1].chars().allMatch(Character::isDigit)) {
+            returnBoolean = false;
+        }
+        else if(info[2].length() != 11 || info[2].contains("-")){
+            returnBoolean = false;
+        }
+        else if (!info[3].chars().allMatch(Character::isDigit)) {
+            returnBoolean = false;
+        }
+        else{
+            returnBoolean = true;
+            User tempUser = new User(info[0],Integer.parseInt(info[1]),info[2],Integer.parseInt(info[3]));
+            user.set(selectIndex,tempUser);
+        }
+        return returnBoolean;
     }
 }
