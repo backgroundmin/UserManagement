@@ -4,7 +4,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class InputInformation {
-    public int list(String list1, String list2){
+    public int list(String list1, String list2){ // 2가지 선택하는 정수 입력
         int num;
         System.out.println("1. "+ list1);
         System.out.println("2. "+ list2);
@@ -24,7 +24,7 @@ public class InputInformation {
         }
         return num;
     }
-    public String name() {
+    public String name() { // 이름 입력
         Scanner scan = new Scanner(System.in);
         String name = new String();
         while(true){
@@ -39,7 +39,7 @@ public class InputInformation {
         }
         return name;
     }
-    public String PhoneNumber() {
+    public String PhoneNumber() { // 전화번호 입력
         Scanner scan = new Scanner(System.in);
         String phoneNumber = new String();
         while(true){
@@ -54,7 +54,7 @@ public class InputInformation {
         }
         return phoneNumber;
     }
-    public int integer(String information){
+    public int integer(String information){ // 정수입력
         int integer;
         while(true){
             try{
@@ -68,7 +68,7 @@ public class InputInformation {
         }
         return integer;
     }
-    public int selectList(int size){
+    public int selectList(int size){ // 0 < n < size 크기의 정수 입력
         int integer;
         while(true){
             try{
@@ -87,7 +87,7 @@ public class InputInformation {
         }
         return integer;
     }
-    public int selectChangeInformation(){
+    public int selectChangeInformation(){ // 메뉴 선택 입력
         System.out.println("=변경할 정보를 고르세요");
         System.out.println("1. 이름");
         System.out.println("2. 나이");

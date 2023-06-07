@@ -20,7 +20,7 @@ public class GuiRun extends JFrame implements ActionListener{
         InputInformation inputInfo = new InputInformation();
         setting();
     }
-    public void setting(){
+    public void setting(){ // 초기 판넬 세팅
         setTitle("유저관리");
         setSize(1280,720);
         setBigJPanel();
@@ -39,7 +39,7 @@ public class GuiRun extends JFrame implements ActionListener{
         });
     }
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e) { // 클릭이벤트 설정
         actionJPanel.removeAll();
         if(e.getSource() == createUserBtn){
             createUser();
@@ -54,7 +54,7 @@ public class GuiRun extends JFrame implements ActionListener{
             changeInformation();
         }
     }
-    public void createUser(){
+    public void createUser(){ // 유저 생성 판넬
         JPanel createUserPanel = new JPanel(); createUserPanel.setBackground(Color.white);
         createUserPanel.removeAll();
         createUserPanel.setLayout(null);
@@ -88,7 +88,7 @@ public class GuiRun extends JFrame implements ActionListener{
         actionJPanel.add(createUserPanel);
         setVisible(true);
     }
-    public void allUserOutPut(){
+    public void allUserOutPut(){ // 유저 출력 판넬
         JPanel allUserOutPutPanel = new JPanel();
         allUserOutPutPanel.setBackground(Color.white);
         allUserOutPutPanel.setLayout(null);
@@ -105,7 +105,7 @@ public class GuiRun extends JFrame implements ActionListener{
         actionJPanel.add(allUserOutPutPanel);
         setVisible(true);
     }
-    public void changeInformation(){
+    public void changeInformation(){ // 정보 수정 판넬
         JPanel changeInformation = new JPanel();changeInformation.setLayout(null);
         changeInformation.setBackground(Color.white);
         changeInformation.removeAll();
@@ -177,7 +177,7 @@ public class GuiRun extends JFrame implements ActionListener{
         actionJPanel.add(changeInformation);
         setVisible(true);
     }
-    public void findUser(){
+    public void findUser(){ // 유저 검색 판넬
         JPanel findUserPanel = new JPanel();
         findUserPanel.setBackground(Color.white);
         findUserPanel.setLayout(null);
@@ -211,7 +211,7 @@ public class GuiRun extends JFrame implements ActionListener{
         actionJPanel.add(findUserPanel);
         setVisible(true);
     }
-    public void btnCreate(){
+    public void btnCreate(){ // 버튼 생성
         JPanel btnJPanel = new JPanel();
         btnJPanel.setBorder(new LineBorder(Color.black,1));
         btnJPanel.setLayout(null);
@@ -230,12 +230,12 @@ public class GuiRun extends JFrame implements ActionListener{
         btnJPanel.add(findUserBtn);btnJPanel.add(changeInformationBtn);
         bigJPanel.add(btnJPanel);
     }
-    public void setBigJPanel(){
+    public void setBigJPanel(){ // 큰 판넬 생성
         bigJPanel = new JPanel();
         bigJPanel.setLayout(null);
         bigJPanel.setBackground(Color.white);
     }
-    public void setActionJPanel(){
+    public void setActionJPanel(){ // 기능 실행되는 판넬 설정
         actionJPanel = new JPanel();
         actionJPanel.setBorder(new LineBorder(Color.black,1));
         actionJPanel.setBounds(150,0,getWidth()-100,getHeight());
@@ -243,7 +243,7 @@ public class GuiRun extends JFrame implements ActionListener{
         actionJPanel.setLayout(new BoxLayout(actionJPanel,BoxLayout.Y_AXIS));
         bigJPanel.add(actionJPanel);
     }
-    public Font font(String set){
+    public Font font(String set){ // 폰트 설정
         if(set.equals("제목")){
             return new Font("",Font.BOLD,25);
         } else if (set.equals("버튼1")) {

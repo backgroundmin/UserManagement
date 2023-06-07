@@ -2,7 +2,7 @@ package src;
 
 import java.util.ArrayList;
 public class GUIUserManagementFunction {
-    public boolean createUser(ArrayList<User> user,String [] info) {
+    public boolean createUser(ArrayList<User> user,String [] info) { // 유저생성
         boolean returnBoolean = true;
         if(info[0].length() > 20){
             returnBoolean = false;
@@ -22,14 +22,14 @@ public class GUIUserManagementFunction {
         }
         return returnBoolean;
     }
-    public String[][] allUserOutPut(ArrayList<User> user){
+    public String[][] allUserOutPut(ArrayList<User> user){ // 유저 출력
         String [][] usersInfo = new String[user.size()][5];
         for(int i = 0 ; i < user.size() ; i++){
             usersInfo[i] = userOutPut(user.get(i));
         }
         return usersInfo;
     }
-    public String[] userOutPut(User user){
+    public String[] userOutPut(User user){ // 유저 데이터 리턴
         String [] userInfo = new String[5];
         userInfo[0] = String.valueOf(user.uniqueNumber);
         userInfo[1] = user.name;
@@ -38,7 +38,7 @@ public class GUIUserManagementFunction {
         userInfo[4] = String.valueOf(user.remainingAvailabilityDates);
         return userInfo;
     }
-    public String[][] findUser(ArrayList<User> user,String kindInfo, String text){
+    public String[][] findUser(ArrayList<User> user,String kindInfo, String text){ //유저검색
         ArrayList<Integer> foundIndex = new ArrayList<Integer>();
         String [][] findUsersInfo = new String[user.size()][5];
         if(kindInfo.equals("고유번호")){
@@ -60,7 +60,7 @@ public class GUIUserManagementFunction {
         }
         return findUsersInfo;
     }
-    public boolean changeInformation(ArrayList<User> user, String [] info, int selectIndex){
+    public boolean changeInformation(ArrayList<User> user, String [] info, int selectIndex){ // 정보수정
         boolean returnBoolean = true;
         if(info[0].length() > 20){
             returnBoolean = false;

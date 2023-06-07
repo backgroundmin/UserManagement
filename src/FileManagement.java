@@ -4,7 +4,7 @@ import java.io.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 public class FileManagement {
-    public void save(ArrayList<User> user){
+    public void save(ArrayList<User> user){ // 파일 저장
         try {
             String nowTime = String.valueOf(LocalDateTime.now());
             OutputStream output = new FileOutputStream("data/userInformation.txt");
@@ -22,7 +22,7 @@ public class FileManagement {
             e.getStackTrace();
         }
     }
-    public void Load(ArrayList<User> user){
+    public void Load(ArrayList<User> user){ // 파일 불러오기
         try {
             File file = new File("data/userInformation.txt");
             FileReader fileReader = new FileReader(file);

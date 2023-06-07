@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class UserManagementFunction {
-    public void createUser(ArrayList<User> user) {
+    public void createUser(ArrayList<User> user) { // 유저생성
         System.out.println("=====사용자 정보 입력=====");
         InputInformation inputInformation = new InputInformation();
         String name = inputInformation.name();
@@ -13,7 +13,7 @@ public class UserManagementFunction {
         int day = inputInformation.integer("이용기간");
         user.add(new User(name,age,phoneNumber,day));
     }
-    public void allUserOutPut(ArrayList<User> user){
+    public void allUserOutPut(ArrayList<User> user){ // 유저출력
 
         System.out.println("=====전체 사용자 정보 출력=====");
         for(int i = 0 ; i < user.size() ; i++){
@@ -21,12 +21,12 @@ public class UserManagementFunction {
             userOutPut(user.get(i));
         }
     }
-    public void userOutPut(User user){
+    public void userOutPut(User user){ // 유저 테이터 리턴
         System.out.println("유저번호>"+user.uniqueNumber + " 이름>" +
                 user.name + " 나이>" + user.age + " 전화번호>"+
                 user.phoneNumber+" 남은이용기간>"+user.remainingAvailabilityDates);
     }
-    public void findUser(ArrayList<User> user){
+    public void findUser(ArrayList<User> user){ // 유저 검색
         System.out.println("=====유저검색=====");
         ArrayList<Integer> foundIndex = new ArrayList<Integer>();
         InputInformation inputInformation = new InputInformation();
@@ -59,7 +59,7 @@ public class UserManagementFunction {
             }
         }
     }
-    public void changeInformation(ArrayList<User> user){
+    public void changeInformation(ArrayList<User> user){ // 정보수정
         InputInformation inputInformation = new InputInformation();
         System.out.println("=====유저 정보 변경=====");
         allUserOutPut(user);
