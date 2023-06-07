@@ -4,11 +4,10 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Objects;
 import java.util.Vector;
 import javax.swing.*;
 import javax.swing.JOptionPane;
-import javax.swing.table.TableColumn;
+import javax.swing.border.*;
 
 public class GuiRun extends JFrame implements ActionListener{
     Button createUserBtn, allUserOutPutBtn, findUserBtn, changeInformationBtn;
@@ -23,7 +22,7 @@ public class GuiRun extends JFrame implements ActionListener{
     }
     public void setting(){
         setTitle("유저관리");
-        setSize(1000,700);
+        setSize(1280,720);
         setBigJPanel();
         setActionJPanel();
         btnCreate();
@@ -56,10 +55,10 @@ public class GuiRun extends JFrame implements ActionListener{
         }
     }
     public void createUser(){
-        JPanel createUserPanel = new JPanel();
+        JPanel createUserPanel = new JPanel(); createUserPanel.setBackground(Color.white);
         createUserPanel.removeAll();
         createUserPanel.setLayout(null);
-        Label label1 = new Label("유저생성"); label1.setBounds(10,10,50,30);
+        Label label1 = new Label("유저생성"); label1.setBounds(10,10,100,30); label1.setFont(font("제목"));
         createUserPanel.add(label1);
 
         Label info = new Label("이름"); info.setBounds(50,50,50,20); createUserPanel.add(info);
@@ -91,9 +90,10 @@ public class GuiRun extends JFrame implements ActionListener{
     }
     public void allUserOutPut(){
         JPanel allUserOutPutPanel = new JPanel();
+        allUserOutPutPanel.setBackground(Color.white);
         allUserOutPutPanel.setLayout(null);
         allUserOutPutPanel.removeAll();
-        Label label1 = new Label("전체회원출력");
+        Label label1 = new Label("회원출력"); label1.setFont(font("제목"));
         label1.setBounds(10,10,100,30);
         String [] header = {"고유번호","이름","나이","전화번호","남은이용기간"};
         String [][] userInfo = userMF.allUserOutPut(user);
@@ -107,8 +107,9 @@ public class GuiRun extends JFrame implements ActionListener{
     }
     public void changeInformation(){
         JPanel changeInformation = new JPanel();changeInformation.setLayout(null);
+        changeInformation.setBackground(Color.white);
         changeInformation.removeAll();
-        Label label1 = new Label("정보 수정"); label1.setBounds(10,10,100,30);
+        Label label1 = new Label("정보 수정"); label1.setBounds(10,10,100,30); label1.setFont(font("제목"));
         changeInformation.add(label1);
         String [] header = {"고유번호","이름","나이","전화번호","이용기간"};
         Object [][] userInfo = userMF.allUserOutPut(user);
@@ -178,9 +179,10 @@ public class GuiRun extends JFrame implements ActionListener{
     }
     public void findUser(){
         JPanel findUserPanel = new JPanel();
+        findUserPanel.setBackground(Color.white);
         findUserPanel.setLayout(null);
         findUserPanel.removeAll();
-        Label label1 = new Label("회원 검색"); label1.setBounds(10,10,100,30);findUserPanel.add(label1);
+        Label label1 = new Label("회원 검색"); label1.setBounds(10,10,100,30);findUserPanel.add(label1); label1.setFont(font("제목"));
         JComboBox<String> comboBoxKindInfo = new JComboBox<String>(new Vector<>(Arrays.asList("고유번호","이름")));
         comboBoxKindInfo.setBounds(10,50,100,20); findUserPanel.add(comboBoxKindInfo);
         JTextField inputText= new JTextField(); inputText.setBounds(110,50,100,20); findUserPanel.add(inputText);
@@ -211,13 +213,15 @@ public class GuiRun extends JFrame implements ActionListener{
     }
     public void btnCreate(){
         JPanel btnJPanel = new JPanel();
-        btnJPanel.setLayout(new BoxLayout(btnJPanel,BoxLayout.Y_AXIS));
-        btnJPanel.setBounds(0,0,100,130);
+        btnJPanel.setBorder(new LineBorder(Color.black,1));
+        btnJPanel.setLayout(null);
+        btnJPanel.setBounds(0,0,150,getHeight());
+        //btnJPanel.setSize(150,getHeight());
         btnJPanel.setBackground(Color.white);
-        createUserBtn = new Button("회원 생성");
-        allUserOutPutBtn = new Button("전체 회원 출력");
-        findUserBtn = new Button("회원검색");
-        changeInformationBtn= new Button("회원정보 수정");
+        createUserBtn = new Button("회원 생성"); createUserBtn.setFont(font("버튼1")); createUserBtn.setBounds(0,1,149,35);
+        allUserOutPutBtn = new Button("회원 출력"); allUserOutPutBtn.setFont(font("버튼1")); allUserOutPutBtn.setBounds(0,36,149,35);
+        findUserBtn = new Button("회원 검색"); findUserBtn.setFont(font("버튼1")); findUserBtn.setBounds(0,71,149,35);
+        changeInformationBtn= new Button("정보 수정");changeInformationBtn.setFont(font("버튼1")); changeInformationBtn.setBounds(0,106,149,35);
         createUserBtn.addActionListener(this);
         allUserOutPutBtn.addActionListener(this);
         findUserBtn.addActionListener(this);
@@ -233,9 +237,20 @@ public class GuiRun extends JFrame implements ActionListener{
     }
     public void setActionJPanel(){
         actionJPanel = new JPanel();
-        actionJPanel.setBounds(100,0,getWidth()-100,getHeight());
-        //actionJPanel.setBackground(Color.gray);
+        actionJPanel.setBorder(new LineBorder(Color.black,1));
+        actionJPanel.setBounds(150,0,getWidth()-100,getHeight());
+        actionJPanel.setBackground(Color.white);
         actionJPanel.setLayout(new BoxLayout(actionJPanel,BoxLayout.Y_AXIS));
         bigJPanel.add(actionJPanel);
+    }
+    public Font font(String set){
+        if(set.equals("제목")){
+            return new Font("",Font.BOLD,25);
+        } else if (set.equals("버튼1")) {
+            return new Font("", Font.PLAIN,15);
+        } else if (set.equals("입력")) {
+            return new Font("",Font.PLAIN,15);
+        }
+        return null;
     }
 }
